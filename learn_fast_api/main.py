@@ -1,4 +1,3 @@
-from dotenv import load_dotenv, dotenv_values
 from fastapi import FastAPI
 from dataBase.base import db
 import uvicorn
@@ -10,7 +9,11 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def startAt():
-    return await db.connect()
+    try:
+        await db.connect()
+
+    except:
+        print("cannot connect to the data base")
 
 # when the app is start request to exmp: disconnect to dataBase
 

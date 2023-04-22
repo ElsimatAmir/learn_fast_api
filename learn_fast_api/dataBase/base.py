@@ -9,3 +9,7 @@ metaData = MetaData()
 engin = create_engine(
     dataBaseUrl
 )
+
+
+async def initDataBase():
+    await metaData.create_all(engin)
