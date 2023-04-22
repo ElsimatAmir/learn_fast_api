@@ -1,0 +1,4 @@
+learn_fast_api/__pycache__
+*.pyc
+# its a file with sensitive data 
+learn_fast_api/core/secretData.py
