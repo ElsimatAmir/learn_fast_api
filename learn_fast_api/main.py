@@ -1,4 +1,6 @@
+from dotenv import load_dotenv, dotenv_values
 from fastapi import FastAPI
+from dataBase.base import db
 import uvicorn
 
 app = FastAPI()
@@ -8,14 +10,14 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def startAt():
-    pass
+    return await db.connect()
 
-# when the app is start request to exmp: connect to dataBase
+# when the app is start request to exmp: disconnect to dataBase
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    pass
+    return await db.disconnect()
 
 
 @app.get('/')
