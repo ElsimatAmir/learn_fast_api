@@ -1,15 +1,12 @@
-from databases import Database
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 from core.secretData import secretData
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
 dataBaseUrl = secretData["LEARN_FASTAPI_DB_URL"]
 
-db = Database(dataBaseUrl)
-metaData = MetaData()
-engin = create_engine(
-    dataBaseUrl
-)
+engin = create_engine(dataBaseUrl)
 
+sessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin)
 
-async def initDataBase():
-    await metaData.create_all(engin)
+Base = declarative_base()

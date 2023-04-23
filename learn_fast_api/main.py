@@ -1,26 +1,35 @@
 from fastapi import FastAPI
-from dataBase.base import db
 import uvicorn
+from dataBase.base import engin, sessionLocal, Base
+from dataBase.order import OrderDbTable
+from dataBase.user import UserDbtable
 
 app = FastAPI()
+
+Base.metadata.create_all(bind=engin, checkfirst=True)
+
+# Dependency
+
+
+def get_db():
+    db = sessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 # when the app is start request to exmp: connect to dataBase
 
 
 @app.on_event("startup")
 async def startAt():
-    try:
-        await db.connect()
-
-    except:
-        print("cannot connect to the data base")
-
+    pass
 # when the app is start request to exmp: disconnect to dataBase
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    return await db.disconnect()
+    pass
 
 
 @app.get('/')

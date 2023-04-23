@@ -1,22 +1,18 @@
 from sqlalchemy import Column, Table, DateTime, Integer, String, ARRAY
-from .base import metaData
+from .base import Base
 from datetime import datetime
 
-userDbTable = Table(
-    'users',
-    metaData,
-    Column('id', Integer,
-           autoincrement=True, primary_key=True, unique=True),
-    Column('name', String),
-    Column('age', Integer),
-    Column('email', String,
-           unique=True, primary_key=True),
-    Column('phoneNumber', Integer),
-    Column('hashedBassword', String),
-    Column('orders', ARRAY(str)),
-    Column('createdAt', DateTime,
-           default=datetime.utcnow),
-    Column('updatedAt', DateTime,
-           default=datetime.utcnow),
 
-)
+class UserDbtable(Base):
+    __tablename__ = "users"
+    id = Column(Integer, autoincrement=True, primary_key=True, index=True)
+    name = Column(String)
+    age = Column(Integer)
+    email = Column(String, unique=True)
+    phoneNumber = Column(Integer)
+    hashedBassword = Column(String)
+    orders = Column(Integer)
+    successedOrders = Column(Integer)
+    canceldOrders = Column(Integer)
+    createdAt = Column(DateTime, default=datetime.utcnow)
+    updatedAt = Column(DateTime, default=datetime.utcnow)
