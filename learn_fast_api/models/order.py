@@ -9,6 +9,7 @@ from pyparsing import Optional
 
 class Order(BaseModel):
     id: Optional[int]
+    ownerId: int
     type: str
     description: str
     amount: float

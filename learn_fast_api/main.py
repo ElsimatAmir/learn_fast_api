@@ -2,12 +2,16 @@ from fastapi import FastAPI
 import uvicorn
 from dataBase.base import engin, sessionLocal, Base
 from dataBase.order import OrderDbTable
-from dataBase.user import UserDbtable
+from dataBase.user import UserDbTable
+from endpoints.user import router as userRouter
+from endpoints.order import router as orderRouter
 
 app = FastAPI()
 
 Base.metadata.create_all(bind=engin, checkfirst=True)
 
+app.include_router(userRouter)
+app.include_router(orderRouter)
 # Dependency
 
 

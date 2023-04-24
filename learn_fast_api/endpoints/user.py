@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from repository.user import UserRepository
 
 router = APIRouter()
 

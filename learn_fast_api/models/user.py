@@ -11,6 +11,8 @@ class User(BaseModel):
     email: EmailStr
     phoneNumber: int
     hashedPassword: str
-    orders: List[Order] = []
+    orders: int
+    successOrder: int
+    cancelOrder: int
     createAt: datetime
     updatedAt: datetime

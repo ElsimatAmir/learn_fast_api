@@ -9,7 +9,7 @@ class OrderDbTable(Base):
     ownerId = Column(Integer)
     type = Column(String)
     amount = Column(Float)
-    discreption = Column(String)
+    description = Column(String)
     isActive = Column(Boolean, default=True)
     createdAt = Column(DateTime, default=datetime.utcnow)
     updatedAt = Column(DateTime, default=datetime.utcnow)
