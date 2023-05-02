@@ -3,7 +3,7 @@ from repository.user import UserRepository
 from models.user import User, UserInput
 from typing import List
 
-router = APIRouter(prefix='/api/user')
+router = APIRouter(prefix='/api/user', tags=['UserApi'])
 
 
 @router.get("/getAllUsers", response_model=List[User])

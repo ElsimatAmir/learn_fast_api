@@ -21,9 +21,15 @@ async def shutdown():
     engin.dispose()
 
 
-@app.get('/')
+@app.get('/', tags=['About the API'])
 async def root():
-    return {"hello": "world"}
+    return {"creator": "Elsimat Amir",
+            "info": "simple app to order a handymen",
+            "country": "will start from Russia Kazan",
+            "backEnd": "FastApi + postgreSQL",
+            "fronted": "dart + flutter",
+            "platform": "mobile(android+Ios)"
+            }
 
 
 if __name__ == "__main__":
