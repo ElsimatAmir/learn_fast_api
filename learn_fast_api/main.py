@@ -1,39 +1,24 @@
 from fastapi import FastAPI
 import uvicorn
-from dataBase.base import engin, sessionLocal, Base
-from dataBase.order import OrderDbTable
-from dataBase.user import UserDbTable
-from endpoints.user import router as userRouter
-from endpoints.order import router as orderRouter
+from dataBase.base import engin, Base
+from endpoints import user, order
+from dataBase.base import engin
 
-app = FastAPI()
-
-Base.metadata.create_all(bind=engin, checkfirst=True)
-
-app.include_router(userRouter)
-app.include_router(orderRouter)
-# Dependency
+app = FastAPI(title='TrudyagiRF API')
 
 
-def get_db():
-    db = sessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-# when the app is start request to exmp: connect to dataBase
+app.include_router(user.router)
+app.include_router(order.router)
 
 
 @app.on_event("startup")
 async def startAt():
-    pass
-# when the app is start request to exmp: disconnect to dataBase
+    engin.connect()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    pass
+    engin.dispose()
 
 
 @app.get('/')
