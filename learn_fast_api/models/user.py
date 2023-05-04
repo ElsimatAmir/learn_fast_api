@@ -13,17 +13,11 @@ class User(BaseModel):
     orders: int
     successOrder: int
     cancelOrder: int
-    createAt: datetime.datetime
+    createdAt: datetime.datetime
     updatedAt: datetime.datetime
 
-    def __init__(self, name, age, email, phoneNumber, hashedPassword):
-        self.name = name
-        self.age = age
-        self.email = email
-        self.phoneNumber = phoneNumber
-        self.hashedPassword = hashedPassword
-        self.orders, self.cancelOrder, self.successOrder = 0
-        self.createAt, self.updatedAt = datetime.datetime.utcnow()
+    class Config:
+        orm_mode = True
 
 
 class UserInput(BaseModel):
@@ -31,4 +25,7 @@ class UserInput(BaseModel):
     age: int
     email: EmailStr
     phoneNumber: int
-    password: str
+    hashedPassword: str
+
+    class Config:
+        orm_mode = True

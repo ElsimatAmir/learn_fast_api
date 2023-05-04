@@ -2,6 +2,7 @@ from models.user import User, UserInput
 from typing import List
 from dataBase.base import session
 from dataBase.user import UserDbTable
+from datetime import datetime
 
 
 class UserRepository():
@@ -11,16 +12,10 @@ class UserRepository():
         session.commit()
         return allUsersList
 
-    async def createUser(user: UserInput) -> User:
-        newUser = User(
-            name=user.name,
-            age=user.age,
-            email=user.email,
-            phoneNumber=user.phoneNumber,
-            hashedPassword=user.password,
-        )
+    async def createUser(user: UserInput) -> UserDbTable:
+        # need to hash the password
+        newUser = UserDbTable(**user.dict())
 
-        print(newUser)  # need to be deleted after a debug
         # session.add(newUser)
         # session.commit()
-        return user
+        return newUser
