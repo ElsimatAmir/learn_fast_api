@@ -22,7 +22,7 @@ async def GetUserById(userEmail: str) -> User:
     pass
 
 
-@router.post("/createUser")  # , response_model=User
-async def createUser(userInputData: UserInput):
+@router.post("/createUser", response_model=User)
+async def createUser(userInputData: UserInput) -> User:
     newUser = await UserRepository.createUser(userInputData)
     return newUser
