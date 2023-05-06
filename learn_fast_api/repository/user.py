@@ -13,9 +13,7 @@ class UserRepository():
         return allUsersList
 
     async def createUser(user: UserInput) -> User:
-        # need to hash the password
         user.hashedPassword = hash(user.hashedPassword)
-
         newUser = UserDbTable(**user.dict())
         session.add(newUser)
         session.commit()

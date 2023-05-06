@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
-from dataBase.base import engin, Base
 from endpoints import user, order
-from dataBase.base import engin
+from dataBase.base import engin, Base, db, dataBaseUrl
 
 app = FastAPI(title='TrudyagiRF API')
 
@@ -13,6 +12,8 @@ app.include_router(order.router)
 
 @app.on_event("startup")
 async def startAt():
+    engin = db.create_engine(dataBaseUrl)
+    Base.metadata.create_all(bind=engin, checkfirst=True)
     engin.connect()
 
 
