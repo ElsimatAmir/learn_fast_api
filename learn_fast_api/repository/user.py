@@ -2,6 +2,7 @@ from models.user import User, UserInput
 from typing import List
 from dataBase.base import session
 from dataBase.user import UserDbTable
+from auth.security import hash
 
 
 class UserRepository():
@@ -13,6 +14,8 @@ class UserRepository():
 
     async def createUser(user: UserInput) -> User:
         # need to hash the password
+        user.hashedPassword = hash(user.hashedPassword)
+
         newUser = UserDbTable(**user.dict())
         session.add(newUser)
         session.commit()
