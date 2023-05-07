@@ -12,8 +12,22 @@ class UserRepository():
         allUsersList = session.query(UserDbTable).all()
         print(allUsersList)
         session.commit()
-
         return allUsersList
+
+    async def getUserById(userId: str) -> UserOutput:
+        user = session.query(UserDbTable).filter(
+            UserDbTable.id == userId).first()
+        return user
+
+    async def getUserByEmail(userEmail: str) -> UserOutput:
+        user = session.query(UserDbTable).filter(
+            UserDbTable.email == userEmail).first()
+        return user
+
+    async def getUserByPhoneNumber(userPhoneNumber: str) -> UserOutput:
+        user = session.query(UserDbTable).filter(
+            UserDbTable.phoneNumber == userPhoneNumber).first()
+        return user
 
     async def createUser(user: UserInput) -> UserOutput:
         user.hashedPassword = hash(user.hashedPassword)
