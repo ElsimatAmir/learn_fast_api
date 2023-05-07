@@ -11,8 +11,8 @@ class User(BaseModel):
     phoneNumber: str
     hashedPassword: str
     orders: int
-    successOrder: int
-    cancelOrder: int
+    successOrders: int
+    cancelOrders: int
     createdAt: datetime.datetime
     updatedAt: datetime.datetime
 
@@ -26,6 +26,22 @@ class UserInput(BaseModel):
     email: EmailStr
     phoneNumber: str
     hashedPassword: str
+
+    class Config:
+        orm_mode = True
+
+
+class UserOutput(BaseModel):
+    id: Optional[int]
+    name: str
+    age: int
+    email: EmailStr
+    phoneNumber: str
+    orders: int
+    successOrders: int
+    cancelOrders: int
+    createdAt: datetime.datetime
+    updatedAt: datetime.datetime
 
     class Config:
         orm_mode = True
