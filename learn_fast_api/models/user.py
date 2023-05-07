@@ -8,38 +8,40 @@ class User(BaseModel):
     name: str
     age: int
     email: EmailStr
-    phoneNumber: int
+    phoneNumber: str
     hashedPassword: str
     orders: int
-    successOrder: int
-    cancelOrder: int
+    successOrders: int
+    cancelOrders: int
     createdAt: datetime.datetime
     updatedAt: datetime.datetime
 
     class Config:
         orm_mode = True
 
-    # def __init__(self, id, name, age, email, password, phoneNumber, orders, successOrder, cancelOrder, createAt, updatedAt):
-    #     super().__init__
-    #     self.id = id
-    #     self.name = name
-    #     self.age = age
-    #     self.email = email
-    #     self.hashedPassword = password
-    #     self.phoneNumber = phoneNumber
-    #     self.orders = orders
-    #     self.successOrder = successOrder
-    #     self.cancelOrder = cancelOrder
-    #     self.createdAt = createAt
-    #     self.updatedAt = updatedAt
-
 
 class UserInput(BaseModel):
     name: str
     age: int
     email: EmailStr
-    phoneNumber: int
+    phoneNumber: str
     hashedPassword: str
+
+    class Config:
+        orm_mode = True
+
+
+class UserOutput(BaseModel):
+    id: Optional[int]
+    name: str
+    age: int
+    email: EmailStr
+    phoneNumber: str
+    orders: int
+    successOrders: int
+    cancelOrders: int
+    createdAt: datetime.datetime
+    updatedAt: datetime.datetime
 
     class Config:
         orm_mode = True

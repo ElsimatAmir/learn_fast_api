@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import BigInteger, Column, DateTime, Integer, String
 from .base import Base
 from datetime import datetime
 
@@ -9,8 +9,8 @@ class UserDbTable(Base):
     name = Column(String(115))
     age = Column(Integer)
     email = Column(String(115), unique=True)
-    phoneNumber = Column(Integer)
-    hashedPassword = Column(String(40))
+    phoneNumber = Column(String(115), unique=True)
+    hashedPassword = Column(String(115))
     orders = Column(Integer, default=0)
     successOrders = Column(Integer, default=0)
     cancelOrders = Column(Integer, default=0)
