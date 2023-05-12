@@ -45,3 +45,11 @@ class UserOutput(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class UserLogin(BaseModel):
+    login: str
+    hashedPassword: str
+
+    class Config:
+        orm_mode = True
