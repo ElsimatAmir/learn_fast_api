@@ -12,19 +12,19 @@ async def getAllUsers(skip: int = 0, limit: int = 10) -> List[UserOutput]:
     return allUsersList
 
 
-@router.post("/getUserById/@{userId}", response_model=UserOutput)
+@router.post("/getUserById/userID={userId}", response_model=UserOutput)
 async def GetUserById(userId: int) -> UserOutput:
     user = await UserRepository.getUserById(userId)
     return user
 
 
-@router.post("/getUserByPhoneNumber/@{userPhoneNumber}", response_model=UserOutput)
+@router.post("/getUserByPhoneNumber/phoneNumber={userPhoneNumber}", response_model=UserOutput)
 async def GetUserById(userPhoneNumber: str) -> UserOutput:
     user = await UserRepository.getUserByPhoneNumber(userPhoneNumber)
     return user
 
 
-@router.post("/getUserByEmail/@{userEmail}", response_model=UserOutput)
+@router.post("/getUserByEmail/userEmail={userEmail}", response_model=UserOutput)
 async def GetUserById(userEmail: str) -> UserOutput:
     user = await UserRepository.getUserByEmail(userEmail)
     return user
