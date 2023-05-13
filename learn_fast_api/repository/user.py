@@ -1,8 +1,9 @@
-from models.user import User, UserInput, UserOutput
+from models.user import UserLogin, UserInput, UserOutput
 from typing import List
 from dataBase.base import session
 from dataBase.user import UserDbTable
-from auth.security import hash
+from auth.security import hash, verify
+from auth.access_token import signToken
 
 
 class UserRepository():
@@ -35,3 +36,20 @@ class UserRepository():
         session.add(newUser)
         session.commit()
         return newUser
+
+    async def loginUser(userLogin: UserLogin):
+        currentUser = session.query(UserDbTable).filter(
+            UserDbTable.email == userLogin.login or UserDbTable.phoneNumber == userLogin.login).first()
+        if currentUser == None:
+            return {
+                'Error': 'invalid Email or phone number'
+            }
+        else:
+            isPasswordCorrect = verify(
+                password=userLogin.hashedPassword, hashedPassword=currentUser.hashedPassword)
+            if isPasswordCorrect:
+                return signToken(currentUser.id)
+            else:
+                return {
+                    "Error": "invalid password"
+                }

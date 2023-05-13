@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from repository.user import UserRepository
-from models.user import User, UserInput, UserOutput
+from models.user import User, UserInput, UserOutput, UserLogin
 from typing import List
 
 router = APIRouter(prefix='/api/user', tags=['UserApi'])
@@ -34,3 +34,9 @@ async def GetUserById(userEmail: str) -> UserOutput:
 async def createUser(userInputData: UserInput) -> UserOutput:
     newUser = await UserRepository.createUser(userInputData)
     return newUser
+
+
+@router.post("/userLogin")
+async def login(userLogin: UserLogin):
+    userToken = await UserRepository.loginUser(userLogin)
+    return userToken
